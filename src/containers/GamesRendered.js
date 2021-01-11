@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect}  from 'react';
 import ItemGame from '../components/ItemGame'
-import {data} from '../data/gameGlobal'
+// import {data} from '../data/gameGlobal'
+import { connect } from 'react-redux';
+import {fetchGames} from '../actions/GamesActions'
+import Loading from '../components/Loading'
 
-const GamesRendered = () => {
-
+const GamesRendered = ({listGames,loadingGames,linkGameNext,fetchGames,typeLoading}) => {
+  const  API_URL= "https://api.rawg.io/api/games?page=1";
+  const typeCall = 'call_all'
   const renderGames = games => {
+    console.log(games)
     const result = [];
     const length = games.length;
     const column_in_page = 4;
@@ -19,27 +24,59 @@ const GamesRendered = () => {
       for (let j = 0; j < items_in_column; j++, currentIndex++) {
         //nếu tồn tại thì trả về không thì null 
         const game = games[currentIndex] ? games[currentIndex] : null;
-        console.log(game)
         column.push(<ItemGame key={game.id} {...game} />);
       }
-
       result.push(
         <div key={col_init} className="col">
           {column}
         </div>
       );
     }
-
     return result;
   };
+  // gọi data game page đầu
+  useEffect(() => {
+    fetchGames(API_URL,typeCall)
+  },[fetchGames])
+ // gọi data game page tiếp theo dựa vào linkGameNext
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        linkGameNext && window.innerHeight + window.scrollY >=
+        document.body.offsetHeight + 40
+      ) {
+        setTimeout(
+          () => fetchGames(linkGameNext,typeCall),1000
+        );
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [fetchGames,linkGameNext]);
 
   return (
     <>
-      <div className="games-rendered">
-        {renderGames(data.results)}
-      </div>
+    {loadingGames && typeLoading==='call_by_genre'?<Loading/>:
+    <div className="games-rendered">
+      {renderGames(listGames)}
+    </div> }
+    {loadingGames && typeLoading==='call_all' && <Loading/>}
     </>
   )
 }
 
-export {GamesRendered}
+const mapStateToProps = state => {
+  // call data games từ store đặt tên là listGames
+  // collectionGame là tên bí danh đăt ở reducers/index
+  return { 
+    listGames: state.collectionGame.games,
+    loadingGames: state.collectionGame.loading,
+    linkGameNext: state.collectionGame.nextUrl,
+    typeLoading: state.collectionGame.typeCall,
+  }
+}
+export default connect(mapStateToProps,{fetchGames})(GamesRendered);

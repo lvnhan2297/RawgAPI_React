@@ -1,5 +1,6 @@
 import {Header} from './layouts';
-import {HeaderGenres,GamesRendered} from './containers';
+import HeaderGenres from './containers/HeaderGenres';
+import GamesRendered from './containers/GamesRendered';
 function App() {
   return (
     <div className="App">

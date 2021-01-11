@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Loading = () => {
-
+const Loading = (loading) => {
+  if (!loading) {
+    return null;
+  }
   return (
-    <div className="loading">
+    <div className="loading u-text-center">
       <div className="lds-spinner">
         <div></div>
         <div></div>
