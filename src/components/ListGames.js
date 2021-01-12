@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import {fetchGames} from '../actions/GamesActions'
 import Loading from '../components/Loading'
 
-const GamesRendered = ({listGames,loadingGames,linkGameNext,fetchGames,typeLoading}) => {
+const ListGames = ({listGames,loadingGames,linkGameNext,fetchGames,typeLoading}) => {
   const  API_URL= "https://api.rawg.io/api/games?page=1";
   const typeCall = 'call_all'
+
   const renderGames = games => {
-    console.log(games)
     const result = [];
     const length = games.length;
+    
     const column_in_page = 4;
     //số item có trong một column
     const items_in_column = Math.ceil(length / column_in_page);
@@ -33,7 +34,17 @@ const GamesRendered = ({listGames,loadingGames,linkGameNext,fetchGames,typeLoadi
       );
     }
     return result;
+
   };
+  //   const chunkArray = (myArray, chunk_size) => {
+  //   var results = [];
+  //   while (myArray.length) {
+  //       results.push(myArray.splice(0, chunk_size));
+  //   }
+  //   return results;
+  // }
+  // console.log(chunkArray(listGames,20))
+
   // gọi data game page đầu
   useEffect(() => {
     fetchGames(API_URL,typeCall)
@@ -79,4 +90,4 @@ const mapStateToProps = state => {
     typeLoading: state.collectionGame.typeCall,
   }
 }
-export default connect(mapStateToProps,{fetchGames})(GamesRendered);
+export default connect(mapStateToProps,{fetchGames})(ListGames);

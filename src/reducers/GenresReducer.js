@@ -16,7 +16,7 @@ export default function collectionGenres(state = initialState, action){
       return {
         ...state,
         loading: false,
-        genres: [...state.genres, ...action.payload.fetchedData]
+        genres: [...action.payload.fetchedData]
       };
     default:
         //nếu không có trong số hành động trên trả về không thay đổi

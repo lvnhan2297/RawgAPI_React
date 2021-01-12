@@ -3,7 +3,8 @@ import React, {useState,useEffect} from 'react'
 import { connect } from 'react-redux'
 import {fetchGenres} from '../actions/GenresActions'
 import {fetchGames} from '../actions/GamesActions'
-const HeaderGenres = ({listGenres,fetchGenres,fetchGames}) => {
+// import {Link} from 'react-router-dom'
+const ListGenres = ({listGenres,fetchGenres,fetchGames}) => {
   const  API_URL= "https://api.rawg.io/api/genres";
   const [clickCall, setClickCall] = useState('');
   const [btnActive, setbtnActive] = useState('');
@@ -43,4 +44,4 @@ const mapStateToProps = state =>{
     loadingGenres: state.collectionGenres.loading
   }
 }
-export default connect(mapStateToProps,{fetchGenres,fetchGames})(HeaderGenres);
+export default connect(mapStateToProps,{fetchGenres,fetchGames})(ListGenres);

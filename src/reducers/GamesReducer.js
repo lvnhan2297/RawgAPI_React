@@ -33,6 +33,7 @@ export default function collectionGame (state = initialState, action) {
           loading: false,
           nextUrl: action.payload.nextUrl,
           games: [...state.games, ...action.payload.fetchedData]
+          // games: [...action.payload.fetchedData]
         };
       case FETCH_GAMES_BY_GENRE:
         return {
