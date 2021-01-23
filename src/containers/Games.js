@@ -1,13 +1,20 @@
 import React from 'react'
 import ListGenres from '../components/ListGenres';
 import ListGames from '../components/ListGames';
-function Games() {
+import FullVideo from '../components/FullVideo';
+import { connect } from 'react-redux';
+function Games({videoId}) {
   return (
     <>
       <ListGenres/>
       <ListGames/>
+      {videoId && <FullVideo videoId={videoId}/>}
     </>
   )
 }
-
-export default Games
+const mapStateToProps = state => {
+  return {
+    videoId: state.actionVideo.videoId,
+  }
+}
+export default connect(mapStateToProps,null)(Games)

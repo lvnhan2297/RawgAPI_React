@@ -1,7 +1,7 @@
 import React , {useCallback, Suspense} from 'react';
 import {Header} from './layouts';
 import {routes} from './routes';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Loading from './components/Loading'
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
     return <Switch>{result}</Switch>;
   },[]);
   return (
-    <Router>
+    <BrowserRouter>
       <div className="App">
         <div style={{margin: '2rem 0px'}}>
             <Header/>
@@ -32,7 +32,7 @@ function App() {
             </Suspense>
         </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

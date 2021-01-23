@@ -9,8 +9,9 @@ import { AiTwotoneLike } from 'react-icons/ai'
 import setMetacriticColor from '../utils/setMetacriticColor'
 import Video from '../components/Video'
 import formatImageUrl from '../utils/formatImageUrl'
+import { Link } from 'react-router-dom';
 
-const ItemGame = ({background_image,metacritic,name,clip}) => {
+const ItemGame = ({background_image,metacritic,name,clip,slug}) => {
   const [hover, setHover] = useState(false);
   const handleMouseEnter = e => {
     setHover(true);
@@ -26,7 +27,7 @@ const ItemGame = ({background_image,metacritic,name,clip}) => {
       onMouseLeave={handleMouseLeave}
     > 
       <div className="background" style={{backgroundImage: `url("${background_image_conver}")`}}>
-        <FaPlay className="icon icon--play" />
+        {clip &&<FaPlay className="icon icon--play" />}
       </div>
       {hover && clip && <Video clip={clip} play={hover}/>} 
       <div className="game-item__info">
@@ -39,7 +40,7 @@ const ItemGame = ({background_image,metacritic,name,clip}) => {
           <span className={`game-item__meta ${setMetacriticColor(metacritic)}`}>{metacritic||0}</span>
         </div>
         <div className="game-item__info__bottom">
-          <a title="Grand Theft Auto V" className="heading-1 game-item__name" href="#/games/grand-theft-auto-v" style={{textDecoration: 'none'}}>{name}</a>
+          <Link title="Grand Theft Auto V" className="heading-1 game-item__name" to={`/games/${slug}`} style={{textDecoration: 'none'}}>{name}</Link>
           <AiTwotoneLike className="icon icon--like"/>
         </div>
       </div>
@@ -47,4 +48,4 @@ const ItemGame = ({background_image,metacritic,name,clip}) => {
   )
 }
 
-export default ItemGame
+export default React.memo(ItemGame)

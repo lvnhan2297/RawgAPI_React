@@ -4,78 +4,75 @@ import ItemGame from '../components/ItemGame'
 import { connect } from 'react-redux';
 import {fetchGames} from '../actions/GamesActions'
 import Loading from '../components/Loading'
+import { useLocation } from 'react-router-dom';
+import useWindowSize from '../utils/useWindowSize'
 
-const ListGames = ({listGames,loadingGames,linkGameNext,fetchGames,typeLoading}) => {
-  const  API_URL= "https://api.rawg.io/api/games?page=1";
-  const typeCall = 'call_all'
-
+const ListGames = ({listGames,fetchGames}) => {
+const size = useWindowSize()
+const setCol = (windowSize) => {
+  if(windowSize>=1200) return 4;
+  if(windowSize>=992) return 3;
+  if(windowSize>=768) return 2;
+  if(windowSize<768) return 1;
+}
+  const location = useLocation();
+  let btnActive = location.search?location.search.slice(location.search.lastIndexOf('=')+1):'games'
+  let colRendered = setCol(size.width);
   const renderGames = games => {
-    const result = [];
-    const length = games.length;
-    
-    const column_in_page = 4;
-    //số item có trong một column
-    const items_in_column = Math.ceil(length / column_in_page);
-    //for cột
-    for (let col_init = 0; col_init < column_in_page; col_init++) {
-      const column = [];
-      //lấy vị trí phần tử trong mảng
-      let currentIndex = col_init * items_in_column;
-      //for item trong 1 cột
-      for (let j = 0; j < items_in_column; j++, currentIndex++) {
-        //nếu tồn tại thì trả về không thì null 
-        const game = games[currentIndex] ? games[currentIndex] : null;
-        column.push(<ItemGame key={game.id} {...game} />);
-      }
-      result.push(
-        <div key={col_init} className="col">
-          {column}
-        </div>
-      );
+    let col = 0;
+    const items = [];
+    for (let i = 0; i < colRendered; i++) {
+      items.push([]);
     }
-    return result;
-
+    for (let i = 0; i < games.length; i++) {
+      items[col].push(games[i]);
+      col++;
+      if (col === colRendered) {
+        col = 0;
+      }
+    }
+    return items.map((col,index)=>
+    <div className="col" key={'games-' + index}>
+      {col.map(game=>
+          <ItemGame key={game.id} {...game}/>
+      )}
+  </div>
+    )
   };
-  //   const chunkArray = (myArray, chunk_size) => {
-  //   var results = [];
-  //   while (myArray.length) {
-  //       results.push(myArray.splice(0, chunk_size));
-  //   }
-  //   return results;
-  // }
-  // console.log(chunkArray(listGames,20))
+;
 
-  // gọi data game page đầu
-  useEffect(() => {
-    fetchGames(API_URL,typeCall)
-  },[fetchGames])
- // gọi data game page tiếp theo dựa vào linkGameNext
+ // gọi data game page tiếp theo dựa vào listGames
   useEffect(() => {
     const handleScroll = () => {
       if (
-        linkGameNext && window.innerHeight + window.scrollY >=
+        listGames[btnActive] && 
+        window.innerHeight + window.scrollY >=
         document.body.offsetHeight + 40
       ) {
         setTimeout(
-          () => fetchGames(linkGameNext,typeCall),1000
+          () => fetchGames(listGames[btnActive].nextUrl,btnActive),1000
         );
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, true);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll, true);
     };
-  }, [fetchGames,linkGameNext]);
+  }, [fetchGames,listGames,btnActive]);
 
   return (
     <>
-    {loadingGames && typeLoading==='call_by_genre'?<Loading/>:
-    <div className="games-rendered">
-      {renderGames(listGames)}
-    </div> }
-    {loadingGames && typeLoading==='call_all' && <Loading/>}
+    {!listGames[btnActive] && <Loading/>}
+      <div className="games-rendered"
+        style={{
+        gridTemplateColumns: `repeat(${colRendered}, minmax(30rem, 50rem)`
+      }}
+      >
+        {listGames[btnActive] && renderGames(listGames[btnActive].games)}
+      </div>
+    {listGames[btnActive] && listGames[btnActive].loading && <Loading/>}
     </>
   )
 }
@@ -84,10 +81,7 @@ const mapStateToProps = state => {
   // call data games từ store đặt tên là listGames
   // collectionGame là tên bí danh đăt ở reducers/index
   return { 
-    listGames: state.collectionGame.games,
-    loadingGames: state.collectionGame.loading,
-    linkGameNext: state.collectionGame.nextUrl,
-    typeLoading: state.collectionGame.typeCall,
+    listGames: state.collectionGame,
   }
 }
 export default connect(mapStateToProps,{fetchGames})(ListGames);

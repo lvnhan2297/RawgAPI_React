@@ -4,7 +4,6 @@
   margin-bottom: 4rem;
 
   @include mq($tablet) {
-    margin-top: -3rem;
     margin-bottom: 0;
   }
 
