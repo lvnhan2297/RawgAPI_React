@@ -1,4 +1,4 @@
-#Rawg_React
+# Rawg_React
 <h3>Project build by React + Redux</h3></br>
 <h3>API use : https://api.rawg.io/docs/</h3></br>
 <h3><a href="https://lvnhan2297.github.io/app_2/#/games">Demo</a></br></h3>
