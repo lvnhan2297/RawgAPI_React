@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 function Games({videoId}) {
   return (
     <>
-      <ListGenres/>
-      <ListGames/>
-      {videoId && <FullVideo videoId={videoId}/>}
+      <div style={{margin: '2rem 0px 5rem'}}>
+        <ListGenres/>
+        <ListGames/>
+      </div>
+        {videoId && <FullVideo videoId={videoId}/>}
     </>
   )
 }

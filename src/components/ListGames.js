@@ -44,27 +44,25 @@ const setCol = (windowSize) => {
  // gọi data game page tiếp theo dựa vào listGames
   useEffect(() => {
     const handleScroll = () => {
+      console.log( window.innerHeight + window.scrollY, document.body.offsetHeight)
       if (
         listGames[btnActive] && 
         window.innerHeight + window.scrollY >=
-        document.body.offsetHeight + 40
+        document.body.offsetHeight
       ) {
-        setTimeout(
-          () => fetchGames(listGames[btnActive].nextUrl,btnActive),1000
-        );
+        fetchGames(listGames[btnActive].nextUrl,btnActive)
       }
     };
 
-    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [fetchGames,listGames,btnActive]);
 
   return (
     <>
-    {!listGames[btnActive] && <Loading/>}
       <div className="games-rendered"
         style={{
         gridTemplateColumns: `repeat(${colRendered}, minmax(30rem, 50rem)`
@@ -72,7 +70,7 @@ const setCol = (windowSize) => {
       >
         {listGames[btnActive] && renderGames(listGames[btnActive].games)}
       </div>
-    {listGames[btnActive] && listGames[btnActive].loading && <Loading/>}
+      {listGames[btnActive] && <Loading loading={listGames[btnActive].loading}/>}
     </>
   )
 }

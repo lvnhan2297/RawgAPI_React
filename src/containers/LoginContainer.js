@@ -5,17 +5,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import {login} from '../actions/UsersAction'
 
-function LoginContainer() {
-   const validationSchema = Yup.object().shape({
+const LoginContainer = () => {
+  const validationSchema = Yup.object().shape({
     email: Yup.string()
     .required('Email is required'),
     password: Yup.string()
     .required('Password is required'),
   });
   const {register, handleSubmit, errors} = useForm({resolver: yupResolver(validationSchema)});
-  // const onSubmit = data => alert(JSON.stringify(data));
+  // const onSubmit = data => login(data)
   const onSubmit = () => toast("🦄 Unsupported feature");
+  
   return (
     <>
       <div>
@@ -29,7 +31,7 @@ function LoginContainer() {
             <div className="invalid-feedback">{errors.email?.message}</div>
           </div>
           <div>
-            <input className="form__input" ref={register} placeholder="Password" name="password" type="password" autoComplete="on"/>
+            <input className="form__input" ref={register} placeholder="Password" name="password" type="password"  autoComplete="on"/>
             <div className="invalid-feedback">{errors.password?.message}</div>
           </div>
           <button type="submit" className="btn form__submit">LOGIN</button>

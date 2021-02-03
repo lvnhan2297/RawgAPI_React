@@ -1,7 +1,7 @@
 import React , {useCallback, Suspense} from 'react';
 import {Header} from './layouts';
 import {routes} from './routes';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, HashRouter} from 'react-router-dom';
 import Loading from './components/Loading'
 
 function App() {
@@ -23,16 +23,16 @@ function App() {
     return <Switch>{result}</Switch>;
   },[]);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
-        <div style={{margin: '2rem 0px'}}>
+        <div style={{padding: '2rem 0px'}}>
             <Header/>
             <Suspense fallback={<Loading loading={true} className="u-text-center" />}>
               {renderRoutes(routes)}
             </Suspense>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

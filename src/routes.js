@@ -5,10 +5,16 @@ const NotFound = lazy(() => import('./containers/NotFound'));
 const LoginContainer = lazy(() => import('./containers/LoginContainer'));
 const RegisterContainer = lazy(() => import('./containers/RegisterContainer'));
 const GameDetail = lazy(() => import('./containers/GameDetail.js'));
+const HomePage = lazy(() => import('./containers/HomePage.js'));
 
 
 
 export const routes = [
+  {
+    path: '/',
+    exact: true,
+    component: HomePage
+  },
   {
     path: '/login',
     exact: true,

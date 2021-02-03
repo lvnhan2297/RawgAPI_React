@@ -14,7 +14,7 @@ const handleChange = (e) => {
   return (
     <>
       <header className="header">
-        <h1 className="header__logo"><Link to="/games" style={{textDecoration: 'none'}}>RAWGC</Link></h1>
+        <h1 className="header__logo"><Link to="/games" style={{textDecoration: 'none'}}>RAWG</Link></h1>
         <div className="search-bar">
           <button className="search-bar__button">
             <FaSearch className="search-bar__icon" />
