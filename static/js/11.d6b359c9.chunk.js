@@ -1,0 +1,2 @@
+(this.webpackJsonpapp_2=this.webpackJsonpapp_2||[]).push([[11],{303:function(s,n,e){"use strict";e.r(n);var t=e(2),c=(e(1),e(151));n.default=function(){return Object(t.jsxs)("div",{className:"not-found",children:[Object(t.jsxs)("div",{className:"not-found__404",children:[Object(t.jsx)("span",{children:"4"}),Object(t.jsx)(c.a,{}),Object(t.jsx)("span",{children:"4"})]}),Object(t.jsx)("span",{className:"not-found__title",children:"Page not found"})]})}}}]);
+//# sourceMappingURL=11.d6b359c9.chunk.js.map
