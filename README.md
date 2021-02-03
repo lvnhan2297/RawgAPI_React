@@ -1,7 +1,8 @@
 # Rawg_React
 <h3>Project build by React + Redux</h3></br>
 <h3>API use : https://api.rawg.io/docs/</h3></br>
-<h3><a href="https://lvnhan2297.github.io/app_2/#/games">Demo</a></br></h3>
+<h3><a href="https://lvnhan2297.github.io/app_2/#/games">Demo</a></br></h3></br>
+Install: npm install
 * Note: 
 This is just a project I've rebuilt my way to learn, an original project from </br>
 https://github.com/nttanh6299/rawg-client </br>
