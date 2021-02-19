@@ -1,0 +1,2 @@
+(this.webpackJsonpRawgAPI_React=this.webpackJsonpRawgAPI_React||[]).push([[11],{303:function(s,e,n){"use strict";n.r(e);var t=n(2),c=(n(1),n(151));e.default=function(){return Object(t.jsxs)("div",{className:"not-found",children:[Object(t.jsxs)("div",{className:"not-found__404",children:[Object(t.jsx)("span",{children:"4"}),Object(t.jsx)(c.a,{}),Object(t.jsx)("span",{children:"4"})]}),Object(t.jsx)("span",{className:"not-found__title",children:"Page not found"})]})}}}]);
+//# sourceMappingURL=11.b725effb.chunk.js.map
