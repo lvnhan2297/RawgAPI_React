@@ -4,8 +4,7 @@
 <h3><a href="https://lvnhan2297.github.io/RawgAPI_React/#/">Demo</a></br></h3></br>
 Install: npm install </br>
 * Note: 
-This is just a project I've rebuilt my way to learn, an original project from </br>
-https://github.com/nttanh6299/rawg-client </br>
+This is just a project I've rebuilt my way to learn </br>
 Thank you</br>
 * Some pictures of the project:
 </br></br>
